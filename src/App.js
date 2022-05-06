@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from "react";
+import './styles/App.css'
+import PostList from "./components/PostList";
+import MyButton from "./components/UI/button/MyButton";
+import MyInput from "./components/UI/input/MyInput";
 
-function App() {
+const App = () => {
+  const [posts, setPosts] = useState([
+    {
+      id: 1,
+      title: 'Javascript',
+      description: 'Javascript Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, eveniet?'
+    },
+    {
+      id: 2,
+      title: 'Javascript',
+      description: 'Javascript Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, eveniet?'
+    },
+    {
+      id: 3,
+      title: 'Javascript',
+      description: 'Javascript Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, eveniet?'
+    },
+  ])
+
+  const [title, setTitle] = useState('')
+  const addNewPost = (e) => {
+    e.preventDefault()
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <form>
+        {/* Управляемый компонент */}
+        <MyInput
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          type="text"
+          placeholder="Название поста"
+        />
+        <MyInput
+          type="text"
+          placeholder="Описание поста"
+        />
+        <MyButton
+          onClick={addNewPost}
         >
-          Learn React
-        </a>
-      </header>
+          Создать пост
+        </MyButton>
+      </form>
+      <PostList posts={posts} title={'Посты JS'}/>
     </div>
-  );
+  )
 }
 
 export default App;
